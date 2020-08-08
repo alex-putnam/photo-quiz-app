@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Photography Quiz App</title>
+    <meta name="description" type="A quiz app about photography basics." />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css"
     />
-    <link rel="stylesheet" href="index.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="index.css" />
   </head>
   <body>
-    <main>
+    <main class="container">
       <header class="header">
         <section>
           <h1>Photography Quiz</h1>
+        </section>
+        <section>
           <ul>
-            <li>Question:<span>0</span>/10</li>
-            <li>Score:<span>0</span></li>
+            <li class="sizeMe">
+              Question: <span class="questionNumber">0</span>/10
+            </li>
+            <li class="sizeMe">
+              Score:
+              <span class="score">0</span>
+            </li>
           </ul>
         </section>
       </header>
-      <section class="startBox">
-        <h2>Are you ready to test your photography knowledge?</h2>
-        <!--         <img />
-        <button type="button" class="startButton button">START</button> -->
+      <section>
+        <section class="startQuiz box">
+          <h2>Are you ready to test your photography knowledge?</h2>
+          <img
+            src="images/sony_camera_pic.jpg"
+            alt="sony camera in smoke"
+            class="images"
+          />
+          <button type="button" class="startButton button">Start</button>
+        </section>
+        <section class="questionBox box altBox"></section>
+        <section class="final box altBox"></section>
       </section>
-      <section class="questionBox">Questions</section>
-      <section class="responseBox">Response</section>
-      <section class="finalBox">Final</section>
     </main>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
