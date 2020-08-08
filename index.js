@@ -1,4 +1,4 @@
-//question database
+//question array database
 const STORE = [
   {
     question:
@@ -98,14 +98,14 @@ const STORE = [
   },
 ];
 
-//variables to store the quiz score and question number information
+//score and question number global variables for functions
 let score = 0;
 let questionNumber = 0;
 
-//template to generate each question
+//generate each question function in order
 function generateQuestion() {
   if (questionNumber < STORE.length) {
-    return createThing(questionNumber);
+    return createForm(questionNumber);
   } else {
     $(".questionBox").hide();
     finalScore();
@@ -113,22 +113,19 @@ function generateQuestion() {
   }
 }
 
-//increments the number value of the "score" variable by one
-//and updates the "score" number text in the quiz view
+//updates the score text in the app and variable
 function updateScore() {
   score++;
   $(".score").text(score);
 }
 
-//increments the number value of the "question number" variable by one
-//and updates the "question number" text in the quiz view
+//updates the question number text in the app and variable
 function updateQuestionNumber() {
   questionNumber++;
   $(".questionNumber").text(questionNumber + 1);
 }
 
-//resets the text value of the "question number" and "score" variables
-//and updates their repective text in the quiz view
+//resets the question number and score variables and in the app
 function resetStats() {
   score = 0;
   questionNumber = 0;
@@ -138,7 +135,7 @@ function resetStats() {
 
 //begins the quiz
 function startQuiz() {
-  $(".altBox").hide();
+  $(".boxHide").hide();
   $(".startQuiz").on("click", ".startButton", function (event) {
     $(".startQuiz").hide();
     $(".questionNumber").text(1);
@@ -147,11 +144,11 @@ function startQuiz() {
   });
 }
 
-//submits a selected answer and checks it against the correct answer
-//runs answer functions accordingly
+//submits a selected answer and checks it against the correct answer, determines if it correct or not
 function submitAnswer() {
   $(".questionBox").on("submit", function (event) {
     event.preventDefault();
+    $("input[type=radio]").attr("disabled", true);
     $(".submitButton").replaceWith(
       `<button type="button" class="nextButton button">Next</button>`
     );
@@ -164,7 +161,7 @@ function submitAnswer() {
 }
 
 //creates html for question form
-function createThing(questionIndex) {
+function createForm(questionIndex) {
   $(".questionBox").html(`<form>
       <legend class="questionText">${STORE[questionIndex].question}</legend>
   </form>`);
@@ -172,7 +169,7 @@ function createThing(questionIndex) {
   let addAnswer = $(".questionBox").find("form");
 
   STORE[questionIndex].answers.forEach(function (answerValue, answerIndex) {
-    $(`<label class="sizeMe" for="${answerIndex}">
+    $(`<label class="listSize" for="${answerIndex}">
         <input class="radio" type="radio" id="${answerIndex}" value="${answerValue}" name="answer" required>
         <span>${answerValue}</span>
       </label>
@@ -183,19 +180,18 @@ function createThing(questionIndex) {
   ).appendTo(addAnswer);
 }
 
-//resulting feedback if a selected answer is correct
-//increments user score by one
+//feedback if a selected answer is correct and updates score
 function correctAnswer() {
   $(".questionBox").append(`<h3>Your answer is correct!</h3>`);
   $(".questionBox").css("background-color", "rgb(0 ,128, 0, 0.8)");
   updateScore();
 }
 
-//resulting feedback if a selected answer is incorrect
+//feedback if a selected answer is incorrect
 function wrongAnswer() {
   $(".questionBox").append(
     `<h3>Sorry, wrong answer...</h3>
-    <p class="sizeMe">The answer is: ${STORE[questionNumber].correctAnswer}</p>`
+    <p class="listSize">The answer is: ${STORE[questionNumber].correctAnswer}</p>`
   );
   $(".questionBox").css("background-color", "rgba(255, 0, 0, 0.8)");
 }
@@ -209,39 +205,39 @@ function nextQuestion() {
   });
 }
 
-//determines final score and feedback at the end of the quiz
+//determines final score and gives user feedback at the end of the quiz
 function finalScore() {
   $(".final").show();
   if (score >= 8) {
     $(".final").html(
-      `<h3>GREAT</h3>
+      `<h3>AMAZING WORK!</h3>
       <h3>Your Score is: ${score}</h3>
-      <p>LOOKS LIKE SOMEONE HAS TAKEN THEIR PHOTO</p>
+      <p>LOOKS LIKE SOMEONE IS GOING TO BE PRO</p>
       <button type="submit" class="restartButton button">Restart</button>`
     );
   } else if (score < 8 && score >= 5) {
     $(".final").html(
-      `<h3>GOOD</h3>
+      `<h3>GOOD JOB</h3>
       <h3>Your Score is: ${score}</h3>
-      <p>A LITTLE MORE PRACTICE AND YOULL BE A PRO</p>
+      <p>ALMOST THERE, A LITTLE MORE PRACTICE</p>
       <button type="submit" class="restartButton button">Restart</button>`
     );
   } else {
     $(".final").html(
-      `<h3>BAD</h3>
+      `<h3>YOU DIDNT DO WELL</h3>
       <h3>Your Score is: ${score}</h3>
-      <p>KEEP STUDING</p>
+      <p>KEEP STUDYING</p>
       <button type="submit" class="restartButton button">Restart</button>`
     );
   }
 }
 
-//takes user back to the starting view to restart the quiz
+//restarts the quiz
 function restartQuiz() {
   $(".final").on("click", ".restartButton", function (event) {
     event.preventDefault();
     resetStats();
-    $(".altBox").hide();
+    $(".boxHide").hide();
     $(".startQuiz").show();
   });
 }

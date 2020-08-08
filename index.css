@@ -66,6 +66,20 @@ legend {
   margin-bottom: 0.5em;
 }
 
+.button {
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 3em;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: black;
+}
+
 .final {
   display: block;
 }
@@ -81,17 +95,12 @@ legend {
   }
 
   .button {
-    background-color: blue;
-    color: white;
-    border-radius: 10px;
     margin-top: 0.5em;
     font-size: 1em;
     width: 8em;
     height: 2.5em;
-    cursor: pointer;
   }
 
-  h1,
   h3,
   legend {
     font-size: 1em;
@@ -104,7 +113,7 @@ legend {
     font-size: 1em;
   }
 
-  .sizeMe {
+  .listSize {
     font-size: 0.9em;
     margin: 0.1em;
   }
@@ -123,7 +132,6 @@ legend {
     height: 2.5em;
   }
 
-  h1,
   h3,
   legend {
     font-size: 1em;
@@ -133,7 +141,7 @@ legend {
     font-size: 36px;
   }
 
-  .sizeMe {
+  .listSize {
     font-size: 0.9em;
   }
 }
@@ -149,7 +157,6 @@ legend {
     height: 38em;
   }
 
-  h1,
   h3,
   legend {
     font-size: 1.3em;
@@ -159,7 +166,7 @@ legend {
     font-size: 36px;
   }
 
-  .sizeMe {
+  .listSize {
     font-size: 1em;
   }
 
