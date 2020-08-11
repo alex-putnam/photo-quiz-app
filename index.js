@@ -102,17 +102,6 @@ const STORE = [
 let score = 0;
 let questionNumber = 0;
 
-//generate each question function in order
-function generateQuestion() {
-  if (questionNumber < STORE.length) {
-    return createForm(questionNumber);
-  } else {
-    $(".questionBox").hide();
-    finalScore();
-    $(".questionNumber").text(10);
-  }
-}
-
 //updates the score text in the app and variable
 function updateScore() {
   score++;
@@ -133,35 +122,26 @@ function resetStats() {
   $(".questionNumber").text(0);
 }
 
-//begins the quiz
-function startQuiz() {
+//renders the quiz
+function renderStart() {
   $(".boxHide").hide();
-  $(".startQuiz").on("click", ".startButton", function (event) {
-    $(".startQuiz").hide();
-    $(".questionNumber").text(1);
-    $(".questionBox").show();
-    $(".questionBox").prepend(generateQuestion());
-  });
+  $(".startQuiz").show();
+  startQuiz();
 }
 
-//submits a selected answer and checks it against the correct answer, determines if it correct or not
-function submitAnswer() {
-  $(".questionBox").on("submit", function (event) {
-    event.preventDefault();
-    $("input[type=radio]").attr("disabled", true);
-    $(".submitButton").replaceWith(
-      `<button type="button" class="nextButton button">Next</button>`
-    );
-    if ($("input:checked").val() === STORE[questionNumber].correctAnswer) {
-      correctAnswer();
-    } else {
-      wrongAnswer();
-    }
-  });
+//renders each question in order
+function renderQuestion() {
+  if (questionNumber < STORE.length) {
+    return renderForm(questionNumber);
+  } else {
+    $(".questionBox").hide();
+    finalScore();
+    $(".questionNumber").text(10);
+  }
 }
 
-//creates html for question form
-function createForm(questionIndex) {
+//renders html for question form
+function renderForm(questionIndex) {
   $(".questionBox").html(`<form>
       <legend class="questionText">${STORE[questionIndex].question}</legend>
   </form>`);
@@ -180,10 +160,37 @@ function createForm(questionIndex) {
   ).appendTo(addAnswer);
 }
 
+//handles the start of the quiz
+function startQuiz() {
+  $(".startQuiz").on("click", ".startButton", function (event) {
+    $(".startQuiz").hide();
+    $(".questionNumber").text(1);
+    $(".questionBox").show();
+    renderQuestion();
+  });
+}
+
+//handles submit selected answer and checks it against the correct answer, determines if it correct or not
+function submitAnswer() {
+  $(".questionBox").on("submit", function (event) {
+    event.preventDefault();
+    $("input[type=radio]").attr("disabled", true);
+    $(".submitButton").replaceWith(
+      `<button type="button" class="nextButton button">Next</button>`
+    );
+    if ($("input:checked").val() === STORE[questionNumber].correctAnswer) {
+      correctAnswer();
+    } else {
+      wrongAnswer();
+    }
+  });
+  nextQuestion();
+}
+
 //feedback if a selected answer is correct and updates score
 function correctAnswer() {
   $(".questionBox").append(`<h3>Your answer is correct!</h3>`);
-  $(".questionBox").css("background-color", "rgb(0 ,128, 0, 0.8)");
+  $(".questionBox").css("background-color", "rgb(0 ,128, 0, 1.2)");
   updateScore();
 }
 
@@ -193,7 +200,7 @@ function wrongAnswer() {
     `<h3>Sorry, wrong answer...</h3>
     <p class="listSize">The answer is: ${STORE[questionNumber].correctAnswer}</p>`
   );
-  $(".questionBox").css("background-color", "rgba(255, 0, 0, 0.8)");
+  $(".questionBox").css("background-color", "rgba(255, 0, 0, 1.2)");
 }
 
 //generates the next question
@@ -201,7 +208,7 @@ function nextQuestion() {
   $(".questionBox").on("click", ".nextButton", function (event) {
     $(".questionBox").css("background-color", "white");
     updateQuestionNumber();
-    $(".questionBox form").replaceWith(generateQuestion());
+    renderQuestion();
   });
 }
 
@@ -238,16 +245,15 @@ function restartQuiz() {
     event.preventDefault();
     resetStats();
     $(".boxHide").hide();
-    $(".startQuiz").show();
+    renderStart();
   });
 }
 
 //runs the functions
 function runQuiz() {
-  startQuiz();
-  generateQuestion();
+  renderStart();
+  renderQuestion();
   submitAnswer();
-  nextQuestion();
   restartQuiz();
 }
 

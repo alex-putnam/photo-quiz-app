@@ -57,7 +57,7 @@ label {
 }
 
 h1 {
-  font-size: 36px;
+  font-size: 28px;
 }
 
 h1,
@@ -107,7 +107,7 @@ legend {
   }
 
   h1 {
-    font-size: 36px;
+    font-size: 28px;
   }
   .header li {
     font-size: 1em;
@@ -119,7 +119,7 @@ legend {
   }
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 500px) {
   .box {
     width: 29.5em;
     height: 31.5em;
@@ -138,7 +138,7 @@ legend {
   }
 
   h1 {
-    font-size: 36px;
+    font-size: 30px;
   }
 
   .listSize {
@@ -146,7 +146,39 @@ legend {
   }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 700px) {
+  .header li {
+    margin: 1em;
+    font-size: 1.3em;
+  }
+
+  .box {
+    width: 32em;
+    height: 33em;
+  }
+
+  h3,
+  legend {
+    font-size: 1.3em;
+  }
+
+  h1 {
+    font-size: 33px;
+  }
+
+  .listSize {
+    font-size: 1em;
+  }
+
+  .button {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 12em;
+    font-size: 1.2em;
+  }
+}
+
+@media only screen and (min-width: 900px) {
   .header li {
     margin: 1em;
     font-size: 1.3em;
@@ -154,7 +186,7 @@ legend {
 
   .box {
     width: 35em;
-    height: 38em;
+    height: 65%;
   }
 
   h3,
