@@ -140,12 +140,22 @@ function renderQuestion() {
   }
 }
 
-//renders html for question form
+//renders the complete question HTML form
 function renderForm(questionIndex) {
-  $(".questionBox").html(`<form>
-      <legend class="questionText">${STORE[questionIndex].question}</legend>
-  </form>`);
+  $(".questionBox").html(generateQuestion(questionIndex));
+  $(".questionBox").html(generateAnswers(questionIndex));
+}
 
+//generates question in renderForm
+function generateQuestion(questionIndex) {
+  return `
+  <form>
+      <legend class="questionText">${STORE[questionIndex].question}</legend>
+  </form>`;
+}
+
+//generates and adds html for answers to renderForm
+function generateAnswers(questionIndex) {
   let addAnswer = $(".questionBox").find("form");
 
   STORE[questionIndex].answers.forEach(function (answerValue, answerIndex) {
@@ -206,6 +216,7 @@ function wrongAnswer() {
 //generates the next question
 function nextQuestion() {
   $(".questionBox").on("click", ".nextButton", function (event) {
+    event.preventDefault();
     $(".questionBox").css("background-color", "white");
     updateQuestionNumber();
     renderQuestion();
@@ -214,28 +225,31 @@ function nextQuestion() {
 
 //determines final score and gives user feedback at the end of the quiz
 function finalScore() {
+  const great = `
+    <h3>AMAZING WORK!</h3>
+    <h3>Your Score is: ${score}</h3>
+    <p>LOOKS LIKE SOMEONE IS GOING TO BE PRO</p>
+    <button type="submit" class="restartButton button">Restart</button>`;
+
+  const good = `
+    <h3>GOOD JOB</h3>
+    <h3>Your Score is: ${score}</h3>
+    <p>ALMOST THERE, A LITTLE MORE PRACTICE</p>
+    <button type="submit" class="restartButton button">Restart</button>`;
+
+  const bad = `
+    <h3>YOU DIDNT DO WELL</h3>
+    <h3>Your Score is: ${score}</h3>
+    <p>KEEP STUDYING</p>
+    <button type="submit" class="restartButton button">Restart</button>`;
+
   $(".final").show();
   if (score >= 8) {
-    $(".final").html(
-      `<h3>AMAZING WORK!</h3>
-      <h3>Your Score is: ${score}</h3>
-      <p>LOOKS LIKE SOMEONE IS GOING TO BE PRO</p>
-      <button type="submit" class="restartButton button">Restart</button>`
-    );
+    $(".final").html(great);
   } else if (score < 8 && score >= 5) {
-    $(".final").html(
-      `<h3>GOOD JOB</h3>
-      <h3>Your Score is: ${score}</h3>
-      <p>ALMOST THERE, A LITTLE MORE PRACTICE</p>
-      <button type="submit" class="restartButton button">Restart</button>`
-    );
+    $(".final").html(good);
   } else {
-    $(".final").html(
-      `<h3>YOU DIDNT DO WELL</h3>
-      <h3>Your Score is: ${score}</h3>
-      <p>KEEP STUDYING</p>
-      <button type="submit" class="restartButton button">Restart</button>`
-    );
+    $(".final").html(bad);
   }
 }
 
